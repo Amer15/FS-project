@@ -15,7 +15,7 @@ class UserOrders extends Component {
         super();
 
         this.state = {
-            orders: null,
+            orders: [],
             loading: false
         }
     }
@@ -77,13 +77,13 @@ class UserOrders extends Component {
 
     render() {
         let orders;
-        if (this.state.orders === null && this.state.loading === true) {
+        if (this.state.orders.length === 0 && this.state.loading === true) {
             orders = <h6>Loading...</h6>
         }
-        else if (this.state.orders === null && this.state.loading === false) {
+        else if (this.state.orders.length === 0 && this.state.loading === false) {
             orders = <h6>No orders to show</h6>
         }
-        else if (this.state.orders !== null && this.state.loading === false) {
+        else if (this.state.orders.length > 0 && this.state.loading === false) {
             orders = this.state.orders.map(order => {
                 return (
                     <div key={order._id} className='row rounded d-flex justify-content-center my-2 myorder-main-card p-1'>
@@ -112,7 +112,7 @@ class UserOrders extends Component {
                 <Navbar />
                 <div className='container mt-4 text-center p-3'>
                     <h5 className='pb-4'>My Orders</h5>
-                    {this.state.orders ? 'No orders to show' : orders}
+                    {orders}
                 </div>
                 <Footer />
             </Fragment>
