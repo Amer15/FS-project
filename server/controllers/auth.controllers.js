@@ -29,6 +29,8 @@ var transport = nodemailer.createTransport({
 
 
 
+
+
 exports.signUp = (req, res) => {
 
     const errors = validationResult(req);
