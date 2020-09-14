@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap');
+
+.NavbarItems{
+    /* background: linear-gradient(90deg, rgba(110, 94, 254) 0%, rgba(73, 63, 252, 1) 100%);*/
+    background: #222f3e;
+    color: #ffffff;
+    height: 50px;
+    font-family: 'Open Sans', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 4px;
+}
+
+.Navbar-logo{
+    justify-self: flex-start;
+    margin-left: 10px;
+    font-size: 1.4rem;
+    color: antiquewhite;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo{
+    text-decoration: none;
+}
+
+.logo:hover{
+    text-decoration: none;
+}
+
+.fa-react{
+    margin-left: 6px;
+}
+
+.nav-menu{
+    width: 60vw;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.nav-links{
+    color: #ffffff;
+    text-decoration: none !important;
+    padding: 0.5rem 1rem;
+}
+
+.nav-links:hover{
+    background: #384a5fcc;
+    border-radius: 4px;
+    transition: all 0.3s ease-in-out;
+    color: #e7c24a;
+}
+
+.fa-bars{
+    color: #ffffff;
+}
+
+.menu-icon{
+    display: none;
+}
+
+.active-class{
+    color: #e7c24a;
+}
+
+
+
+@media screen and (max-width: 996px){
+    .NavbarItems{
+        position: relative;
+    }
+
+    .nav-menu{
+        display: flex;
+        flex-direction: column;
+        width: 100vw;
+        height: 600px;
+        position: absolute;
+        top: 38px;
+        left: -150%;
+        opacity: 1;
+        transition: all 0.5s ease;
+    }
+
+    .nav-menu.active{
+        background: #222f3e;
+        left: 0;
+        opacity: 1;
+        transition: all 0.3s ease;
+        z-index: 4;   
+        padding: 0;
+    }
+
+    .nav-links{
+        text-align: center;
+        padding: 2rem;
+        width: 100vw;
+        display: table;
+        margin-left: 0;
+    }
+
+    .nav-links:hover{
+        background: #384a5fcc;
+        border-radius: 0;
+    }
+
+    .Navbar-logo{
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(10%, 8%);
+    }
+
+    .menu-icon{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-100%, 14%);
+        font-size: 26px;
+        cursor: pointer;
+    }
+
+    .fa-times{
+        color: #ffffff;
+        font-size: 26px;
+    }
+}

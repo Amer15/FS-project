@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap');
+
+.hero-section1{
+    height: 500px;
+    background-image:
+    linear-gradient(to bottom, rgba(24, 25, 26, 0.726), rgba(0, 0, 0, 0.616)),
+    url('../../assets/hero2.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Rubik', sans-serif;
+}
+
+.hero-section1 h1{
+    font-weight: 400;
+}
+
+.underline{
+    height: 5px;
+    background: #222f3e;
+    background: #047c7c;
+    width: 140px;
+    margin: -2px auto 0 auto;
+}
+
+
+.shopBy-container{
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.shopBy{
+    height: 200px;
+    width: 200px;
+    /* background: salmon; */
+    border-radius: 50%;
+    color: #FFFFFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.shopBy a{
+    text-decoration: none;
+    color: #FFFFFF;
+}
+
+.shopBy a:hover{
+    text-decoration: none;
+    color: #FFFFFF;
+    transform: scale(0.95);
+    transition: all 400ms ease-out;
+}
+
+.shopBy h6{
+    font-size: 24px;
+}
+
+.shop-section1{
+    background-image:
+    linear-gradient(to bottom, rgba(24, 25, 26, 0.726), rgba(0, 0, 0, 0.616)),
+    url('../../assets/summer.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.shop-section2{
+    background-image:
+    linear-gradient(to bottom, rgba(24, 25, 26, 0.726), rgba(0, 0, 0, 0.616)),
+    url('../../assets/winter.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+.shop-section3{
+    background-image:
+    linear-gradient(to bottom, rgba(24, 25, 26, 0.726), rgba(0, 0, 0, 0.616)),
+    url('../../assets/casuals.jpg');
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+}
+
+
+
+@media screen and (max-width:750px){
+    .hero-section1 h1{
+        font-size: 26px;
+    }
+
+    .shopBy-container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .shopBy{
+        margin: 10px 0;
+    }
+}
+
+@media screen and (max-width:396px){
+    .hero-section1 h1{
+        font-size: 20px;
+        margin-bottom: 12px;
+    }
+}

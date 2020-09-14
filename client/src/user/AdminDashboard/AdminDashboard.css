@@ -1,0 +1,6 @@
+@media screen and (max-width: 992px){
+    .adminDashboard-container{
+        display: flex;
+        flex-direction: column-reverse;
+    }
+}

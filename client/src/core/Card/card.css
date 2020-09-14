@@ -1,0 +1,95 @@
+.MyCard{
+    /* border: 1px solid rgb(66, 63, 63); */
+    box-shadow: 0 5px 10px rgba(122, 125, 139, 0.05), 0 15px 40px rgba(166,173,201,.2);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 240px;
+    height: 340px;
+    position: relative;
+}
+
+.wishlist-btn{
+  position: absolute;
+  top: 4px;
+  right: 12px;
+  height: 30px;
+  width: 30px;
+  background: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 3px 6px;
+  color: #E71C23;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.add-btn{
+    background: #d83139;
+    color: #F1E3E4;
+    font-size: 12px
+}
+
+
+.add-btn:hover{
+    color: #F1E3E4;
+    background: #d43c44;
+}
+
+.MyCard-title{
+    font-size: 16px;
+}
+
+.MyCard-text{
+    font-size: 14px;
+}
+
+.price{
+    font-size: 13px;
+    font-weight: 500;
+}
+
+@media only screen and (max-width: 600px){
+    .MyCard{
+        width: 200px;
+        height: 320px;
+    }
+
+    .MyCard-title{
+        font-size: 14px;
+    }
+    
+    .MyCard-text{
+        font-size: 10px;
+    }
+    
+    .price{
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width: 460px){
+  
+    .MyCard{
+        width: 200px;
+        height: 300px;
+    }
+
+    .add-btn{
+        font-size: 8px
+    }
+
+    .MyCard-title{
+        font-size: 10px;
+    }
+    
+    .MyCard-text{
+        font-size: 10px;
+    }
+    
+    .price{
+        font-size: 10px;
+    }
+}
+

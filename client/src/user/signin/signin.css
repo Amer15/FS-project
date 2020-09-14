@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&display=swap');
+
+.btns{
+    background: #3271b9;
+    color: #ffffff;
+    border-radius: 12px;
+    padding: 7px 20px;
+    width: 120px;
+    outline:none;
+    border: none;
+}
+
+.btns:focus{
+    outline:none;
+    border: none;
+}
+
+.btns:hover{
+    outline: none
+}
+
+.signinForms{
+    height: 85vh;
+    width: 90vw;
+    border-radius: 10px;
+    background: rgb(230, 231, 229);
+    overflow: hidden;
+}
+
+.signinForms h3{
+    font-weight: 400;
+}
+
+.bgImg{
+    background-image:
+    linear-gradient(to bottom, rgba(51, 61, 77, 0.726), rgba(0, 0, 0, 0.616)),
+    url('../../assets/bg-tshirt.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: palegoldenrod;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Caveat', cursive;
+}
+
+.bgImg h5{
+    font-size: 30px;
+    font-weight: 400;
+}
+
+#form{
+    height: 380px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.input-group{
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 5px;
+    /* align-items: center; */
+}
+
+.input-group input{
+    border-radius: 6px;
+    outline: none;
+    border: none;
+    padding: 6px;
+    border: 1px solid rgb(93, 92, 92);
+    font-size: 15px;
+}
+
+.form-btn{
+    margin-top: 20px;
+    padding: 6px;
+    background: #19508f;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 7px 20px;
+    width: 150px;
+    outline:none;
+    border: none;
+    cursor: pointer;
+}
+
+.form-btn:hover{
+    background: #3271b9;
+}
+
+.forgot-password-section{
+  /* background: greenyellow; */
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.forgot-password-section h6{
+    color: rgb(109, 108, 108);
+}
+
+
+@media only screen and (max-width: 767px) {
+    .signinForms{
+        height: 80vh;
+        width: 90vw;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 30px;
+    } 
+
+    .input-group{
+        width: 80%;
+    }
+    
+    .form-btn{
+        margin-top: 25px;
+    }
+}    
