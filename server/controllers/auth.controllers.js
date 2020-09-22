@@ -61,45 +61,24 @@ exports.signUp = (req, res) => {
         });
 
         
-
         const activationLink = `${process.env.CLIENT_URL}/account/activate/${token}`;
-        
 
-
-        //creating email template (FOR TESTING)
-        // const emailTemplate = {
-        //     to: [
-        //         {
-        //             address: email,
-        //             name: name
-        //         }
-        //     ],
-        //     from: {
-        //         address: process.env.EMAIL_FROM,
-        //         name: 'TSHIRT STORE LTD'
-        //     },
-        //     subject: 'Account activation Link',
-        //     html: `
-        //     <div style="display:flex; flex-direction:column">
-        //     <h1 style="background-color: #2B2B52; color: white; text-align:center; padding:10px; font-family:Arial, Helvetica, sans-serif">Please use the following link to activate account</h1>
-        //     <br/>
-        //      <button style="align-self:center;padding:10px 18px; background:#0A79DF;letter-spacing:1px; cursor:pointer; outline:none; border:none; border-radius:4px"><a href=${activationLink} target="_blank" style="text-decoration: none; color: white">Activate Now</a></button>
-   
-        //     <hr/>
-        //     <h4 style="text-align:center; color: steelblue">This email contains sensitive information.</h4>
-        //     <p style="align-self:center;color: #192A56; font-family:Impact, Charcoal, sans-serif;letter-spacing:1px;">NOTE: link is valid for only 30 minutes.</p>
-        //     <br/>
-        //     <a href=${process.env.CLIENT_URL} target="_blank" style="align-self:center">Go to Site</a>
-        //    </div>
-        // `
-        // }
-
-        //For sending through Gmail
+        //Sending mail through Gmail
         var mailOptions = {
-            from: process.env.GM_ID,
+            from: 'Tshirt Store MERN APP',
             to: email,
             subject: 'Account Activation',
-            text:`Account activation link ${activationLink}`
+            html: `
+            <div>
+            <h1 style="background-color: #2B2B52; color: white; text-align:center; padding:10px; font-family:Arial, Helvetica, sans-serif">Please click on Activate Now to activate your account</h1>
+             <button style="align-self:center;padding:10px 18px; background:#0A79DF;letter-spacing:1px; cursor:pointer; outline:none; border:none; border-radius:4px; margin:4px auto"><a href=${activationLink} target="_blank" style="text-decoration: none; color: white">Activate Now</a></button>
+            <hr/>
+            <h4 style="text-align:center; color: steelblue">This email contains sensitive information.</h4>
+            <p style="text-align:center;color: #192A56; font-family:Impact, Charcoal, sans-serif;letter-spacing:1px;">NOTE: link is valid for only 30 minutes.</p>
+            <br/>
+            <a href=${process.env.CLIENT_URL} target="_blank" style="align-self:center">Go to Site</a>
+           </div>
+        `
         }
 
         transport.sendMail(mailOptions, (err, result) => {
@@ -111,24 +90,13 @@ exports.signUp = (req, res) => {
                 message: `Email has been sent successfully to ${email}. Please follow the instructions provided in the email to activate your account.`
             });
         });
-
-        //Send account activation mail (For Mailtrap TESTING)
-        // transport.sendMail(emailTemplate, (err, result) => {
-        //     if (err) return res.status(400).json({
-        //         error: 'something went wrong. Could not send email.'
-        //     });
-
-        //     return res.json({
-        //         message: `Email has been sent successfully to ${email}. Please follow the instructions provided in the email to activate your account.`
-        //     });
-        // })
     });
 }
 
 
 exports.activateAccount = (req, res) => {
     const { token } = req.body;
-    console.log('token: ' + token);
+    // console.log('token: ' + token);
 
     if (token) {
         return jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION_KEY, (err) => {

@@ -150,39 +150,24 @@ exports.forgotPassword = (req, res) => {
 
         const resetPasswordLink = `${process.env.CLIENT_URL}/reset-password/${token}`;
 
-        //creating email template (TESTING)
-        // const emailTemplate = {
-        //     to: [
-        //         {
-        //             address: email
-        //         }
-        //     ],
-        //     from: {
-        //         address: process.env.EMAIL_FROM,
-        //         name: 'Auth App'
-        //     },
-        //     subject: 'Reset Password Link',
-        //     html: `
-        //     <div style="display:flex; flex-direction:column">
-        //     <h1 style="background-color: #10A881; color: white; text-align:center; padding:10px; font-family:Arial, Helvetica, sans-serif">Please use the following link to reset your password</h1>
-        //     <br/>
-        //      <button style="align-self:center;padding:10px 18px; background:#0A3D62;letter-spacing:1px; cursor:pointer; outline:none; border:none; border-radius:4px"><a href=${resetPasswordLink} target="_blank" style="text-decoration: none; color: white">Reset Password</a></button>
-
-        //     <hr/>
-        //     <h4 style="text-align:center; color: steelblue">This email contains sensitive information.</h4>
-        //     <p style="align-self:center;color: #192A56; font-family:Impact, Charcoal, sans-serif;letter-spacing:1px;">NOTE: link is valid for only 30 minutes.</p>
-        //     <br/>
-        //     <a href=${process.env.CLIENT_URL} target="_blank" style="align-self:center">Go to Site</a>
-        //    </div>
-        //     `
-        // }
-
         //For sending through Gmail
         var mailOptions = {
             from: process.env.GM_ID,
             to: email,
             subject: 'Forgot Password',
-            text: `Reset Password link ${resetPasswordLink}`
+            html: `
+            <div>
+            <h1 style="background-color: #10A881; color: white; text-align:center; padding:10px; font-family:Arial, Helvetica, sans-serif">Please use the following link to reset your password</h1>
+            <br/>
+             <button style="margin:2px auto;padding:10px 18px; background:#0A3D62;letter-spacing:1px; cursor:pointer; outline:none; border:none; border-radius:4px"><a href=${resetPasswordLink} target="_blank" style="text-decoration: none; color: white">Reset Password</a></button>
+
+            <hr/>
+            <h4 style="text-align:center; color: steelblue">This email contains sensitive information.</h4>
+            <p style="align-self:center;color: #192A56; font-family:Impact, Charcoal, sans-serif;letter-spacing:1px;">NOTE: link is valid for only 30 minutes.</p>
+            <br/>
+            <a href=${process.env.CLIENT_URL} target="_blank" style="align-self:center">Go to Tshirt Store</a>
+           </div>
+            `
         }
 
         //Send Email
@@ -201,7 +186,7 @@ exports.forgotPassword = (req, res) => {
 //Reset PASSWORD
 exports.resetPassword = (req, res) => {
     const { token, password } = req.body;
-    console.log(token, password);
+    // console.log(token, password);
 
     if (!token || !password) return res.status(400).json({
         error: 'token or password is missing. Failed to proceed reset password.'
@@ -262,14 +247,10 @@ exports.userPurchaseList = (req, res) => {
 
 //Middleware to update user's purchases
 exports.updateUserPurchaseList = (req, res, next) => {
-    console.log('Update UserPurchase List called')
-    // console.log('REQ BODY ORDER_PRODS:' + req.body.products);
 
     let purchases = [];
     req.body.products.forEach(product => {
         const { _id, name, description, category, quantity } = product;
-        //     console.log('Update UserPurchase List ForEach Method called')
-        //     console.log(_id, name, description, category, quantity);
         purchases.push({
             _id,
             name,
