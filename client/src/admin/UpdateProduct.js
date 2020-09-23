@@ -10,6 +10,7 @@ import 'react-toastify/dist/ReactToastify.css';
 toast.configure();
 
 
+
 class UpdateProduct extends Component {
     constructor() {
         super();
@@ -40,17 +41,17 @@ class UpdateProduct extends Component {
 
     loadCategories = () => {
         getAllcategories()
-        .then(data => {
-            if (data.error) {
-                console.log(data.error)
-            }
-            else {
-                this.setState({
-                    categories: data
-                });
-            }
-        })
-        .catch(error => console.log(error))
+            .then(data => {
+                if (data.error) {
+                    console.log(data.error)
+                }
+                else {
+                    this.setState({
+                        categories: data
+                    });
+                }
+            })
+            .catch(error => console.log(error))
     }
 
     //Load all categories 
@@ -58,8 +59,9 @@ class UpdateProduct extends Component {
         //load categories
         this.loadCategories();
 
-       const { productId } = this.props.match.params;
-       getProductById(productId)
+        //load product by Id
+        const { productId } = this.props.match.params;
+        getProductById(productId)
             .then(data => {
                 if (data.error) {
                     console.log(data.error)
@@ -67,12 +69,12 @@ class UpdateProduct extends Component {
                 else {
                     // console.log(data);
                     this.setState({
-                      name: data.name,
-                      description: data.description,
-                      category: data.category._id,
-                      price: data.price,
-                      total_units: data.total_units,
-                      formData: new FormData()
+                        name: data.name,
+                        description: data.description,
+                        category: data.category._id,
+                        price: data.price,
+                        total_units: data.total_units,
+                        formData: new FormData()
                     });
                 }
             })
@@ -85,7 +87,6 @@ class UpdateProduct extends Component {
 
         const formData = this.state.formData;
         if (name === 'photo') {
-            // console.log('photo');
             formData.set(name, e.target.files[0]);
             this.setState({
                 [e.target.name]: e.target.files[0],
@@ -111,11 +112,22 @@ class UpdateProduct extends Component {
         const data = this.state.formData;
         const { productId } = this.props.match.params;
 
-       //Method from admin
-        updateProduct(productId, user._id, token, data)
-            .then(data => {
-                if (data.error) {
-                    console.log(data.error);
+        // Method from admin
+            updateProduct(productId, user._id, token, data)
+                .then(data => {
+                    if (data.error) {
+                        // console.log(data.error);
+                        this.setState({
+                            name: '',
+                            description: '',
+                            photo: '',
+                            total_units: '',
+                            price: '',
+                            category: '',
+                            formData: new FormData()
+                        });
+                    }
+                    // console.log(data);
                     this.setState({
                         name: '',
                         description: '',
@@ -125,36 +137,25 @@ class UpdateProduct extends Component {
                         category: '',
                         formData: new FormData()
                     });
-                }
-                console.log(data);
-                this.setState({
-                    name: '',
-                    description: '',
-                    photo: '',
-                    total_units: '',
-                    price: '',
-                    category: '',
-                    formData: new FormData()
-                });
 
-                this.notify(data.message, 'success');
+                    this.notify(data.message, 'success');
 
-                //Redirect to admin dashboard after 3sec
-                setTimeout(() => {
-                  this.props.history.push('/admin/dashboard')
-                }, 3000)
-            })
-            .catch(error => {
-                this.setState({
-                    name: '',
-                    description: '',
-                    photo: '',
-                    total_units: '',
-                    category: '',
-                    formData: new FormData()
+                    //Redirect to admin dashboard after 3sec
+                    // setTimeout(() => {
+                    //   this.props.history.push('/admin/dashboard')
+                    // }, 3000)
+                })
+                .catch(error => {
+                    this.setState({
+                        name: '',
+                        description: '',
+                        photo: '',
+                        total_units: '',
+                        category: '',
+                        formData: new FormData()
+                    });
+                    console.log(error)
                 });
-                console.log(error)
-            });
     }
 
 

@@ -45,13 +45,17 @@ export const updateCartItems = (items) => {
 }
 
 export const getCartTotalPrice = () => {
+  let priceArray = [];
   let amount = 0;
   if (typeof window !== undefined) {
     if (localStorage.getItem('cart')) {
       const cart = JSON.parse(localStorage.getItem('cart'));
-      cart.map(item => {
-        amount = amount + item.price;
+      cart.forEach(item => {
+        priceArray.push(item.price);
       });
+      if (priceArray.length > 0) {
+       amount = priceArray.reduce((total, currPrice) => total + currPrice);
+      }
       return amount;
     }
     else {

@@ -60,7 +60,7 @@ class UserOrders extends Component {
                     });
                 }
                 else {
-                    console.log(data);
+                    // console.log(data);
                     this.setState({
                         orders: data.orders,
                         loading: false
@@ -78,7 +78,9 @@ class UserOrders extends Component {
     render() {
         let orders;
         if (this.state.orders.length === 0 && this.state.loading === true) {
-            orders = <h6>Loading...</h6>
+            orders = (<div className="spinner-border spinner-border-sm" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>)
         }
         else if (this.state.orders.length === 0 && this.state.loading === false) {
             orders = <h6>No orders to show</h6>
@@ -110,7 +112,7 @@ class UserOrders extends Component {
         return (
             <Fragment>
                 <Navbar />
-                <div className='container mt-4 text-center p-3'>
+                <div className='container mt-4 mb-3 text-center p-3'>
                     <h5 className='pb-4'>My Orders</h5>
                     {orders}
                 </div>

@@ -4,7 +4,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { withRouter } from 'react-router-dom';
-// import { createOrder } from './helper/orderHelper';
+import { createOrder } from './helper/orderHelper';
 import { getUser, isAuthenticated } from '../auth/helper/index';
 
 
@@ -33,7 +33,6 @@ class Checkout extends Component {
   }
 
 
-
   //Payment Method
   makePayment = token => {
 
@@ -44,8 +43,7 @@ class Checkout extends Component {
       totalPrice
     }
 
-
-
+    //Making stripe payment
     return fetch(`${API}/make/stripepayment`, {
       method: 'POST',
       headers: {
@@ -61,10 +59,8 @@ class Checkout extends Component {
           console.log(data.error);
         }
         else {
-
-          // console.log(data);
-          // console.log('Transaction_id ' + data.id);
-          // console.log('Charged Rs ' + data.amount / 100);
+          
+          //amount, transaction_id and other details coming from Stripe response data
           const amount = data.amount / 100;
           const transaction_id = data.id;
 
@@ -73,53 +69,30 @@ class Checkout extends Component {
           const token = isAuthenticated();
           const cartProducts = getDetailsOfCartItems();
 
+          //Adding cart products/ordered products, amount and transaction_id to the order
           const order = {
             products: cartProducts,
             amount: amount,
             transaction_id: transaction_id
           }
-
-          return fetch(`${API}/order/create/${userId}`, {
-            method: 'POST',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`
-            },
-            body: JSON.stringify(order)
-          })
-          .then(response => {
-            return response.json();
-          })
-          .then(data => {
-            if (data.error) {
-              this.notify('purchase failed', 'error');
-              console.log(data.error);
-            }
-            else {
-              // this.notify('saved order in DB', 'success');
-              console.log(data);
-              emptyCart(() => {
-                this.props.history.push('/')
-                this.notify('purchase successfull', 'success');
-              });
-            }
-          })
-          .catch(err =>console.log(err));
-
-
-          // createOrder(token, orderProducts, orderData)
-          //   .then(data => {
-              // if (data.error) {
-              //   this.notify('Could not save order in DB', 'error');
-              //   console.log(data.error);
-              // }
-              // else {
-              //   this.notify('saved order in DB', 'success');
-              //   console.log(data);
-              // }
-          //   })
-          //   .catch(err => console.log(err));
+           
+          //Method from orderHelper
+          createOrder(userId, token, order)
+            .then(data => {
+              if (data.error) {
+                this.notify('purchase failed, something went wrong', 'error');
+                // console.log(data.error);
+              }
+              else {
+                // this.notify('saved order in DB', 'success');
+                // console.log(data);
+                emptyCart(() => {
+                  this.props.history.push('/')
+                  this.notify('purchase successfull', 'success');
+                });
+              }
+            })
+            .catch(err => console.log(err));
         }
       })
       .catch(err => console.log(err))

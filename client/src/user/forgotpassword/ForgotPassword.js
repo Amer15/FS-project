@@ -47,11 +47,12 @@ class ForgotPassword extends Component {
         forgotPassword(email)
         .then(data => {
             if(data.error){
+                console.log(data.error);
                 this.setState({
                     email: '',
                     loading: false
                 });
-                this.notify('something went wrong', 'error');
+                this.notify(data.error, 'error');
             }
             else{
                 this.setState({

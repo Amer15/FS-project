@@ -6,19 +6,6 @@ const nodemailer = require('nodemailer');
 
 
 
-//mailtrap transport for nodemailer
-//MailTrap for testing Emails
-// var transport = nodemailer.createTransport({
-//     host: "smtp.mailtrap.io",
-//     port: 2525,
-//     auth: {
-//         user: process.env.MAILTRAP_ID,
-//         pass: process.env.MAILTRAP_PASS
-//     }
-// });
-
-
-//Using Gmail
 var transport = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -26,8 +13,6 @@ var transport = nodemailer.createTransport({
         pass: process.env.GM_PASS
     }
 });
-
-
 
 
 
@@ -60,7 +45,7 @@ exports.signUp = (req, res) => {
             expiresIn: '30m'
         });
 
-        
+
         const activationLink = `${process.env.CLIENT_URL}/account/activate/${token}`;
 
         //Sending mail through Gmail
@@ -71,7 +56,9 @@ exports.signUp = (req, res) => {
             html: `
             <div>
             <h1 style="background-color: #2B2B52; color: white; text-align:center; padding:10px; font-family:Arial, Helvetica, sans-serif">Please click on Activate Now to activate your account</h1>
-             <button style="align-self:center;padding:10px 18px; background:#0A79DF;letter-spacing:1px; cursor:pointer; outline:none; border:none; border-radius:4px; margin:4px auto"><a href=${activationLink} target="_blank" style="text-decoration: none; color: white">Activate Now</a></button>
+            <div style="width: 100%; display: flex; justify-content:center">
+            <button style="align-self:center;padding:10px 18px; background:#0A79DF;letter-spacing:1px; cursor:pointer; outline:none; border:none; border-radius:4px; margin:4px auto"><a href=${activationLink} target="_blank" style="text-decoration: none; color: white">Activate Now</a></button>
+            </div>
             <hr/>
             <h4 style="text-align:center; color: steelblue">This email contains sensitive information.</h4>
             <p style="text-align:center;color: #192A56; font-family:Impact, Charcoal, sans-serif;letter-spacing:1px;">NOTE: link is valid for only 30 minutes.</p>
@@ -96,7 +83,6 @@ exports.signUp = (req, res) => {
 
 exports.activateAccount = (req, res) => {
     const { token } = req.body;
-    // console.log('token: ' + token);
 
     if (token) {
         return jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION_KEY, (err) => {
@@ -106,34 +92,28 @@ exports.activateAccount = (req, res) => {
 
             const { name, email, password } = jwt.decode(token);
 
-            User.findOne({email: email}).exec((err, user) => {
-                if(err) return res.status(400).json({
+            User.findOne({ email: email }).exec((err, user) => {
+                if (err) return res.status(400).json({
                     error: 'Something went wrong'
                 });
 
-                if(user) return res.status(400).json({
+                if (user) return res.status(400).json({
                     error: 'Already activated account. Please sign in.'
                 });
 
-                const userModel = new User();
-                userModel.name = name;
-                userModel.email = email;
-                userModel.password = password;
 
-
-                userModel.save((err, user) => {
+                const newUser = new User({ name, email, password });
+                newUser.save((err, user) => {
                     if (err) return res.status(400).json({
-                        error: 'Something went wrong. Could not save user!'
+                        error: 'Could not save user, something went wrong'
                     });
-        
+
                     return res.json({
-                        message: 'Successfully activated account. Please sign in',
-                        name: user.name,
-                        email: user.email,
-                        id: user._id
+                        message: 'Account activation successfull, please sign in'
                     });
-                })
-            })  
+                });
+
+            })
         })
     }
     else {
@@ -196,15 +176,6 @@ exports.signIn = (req, res) => {
 }
 
 
-exports.signOut = (req, res) => {
-    res.clearCookie('token');
-
-    return res.json({
-        message: 'Signed out successfully'
-    });
-}
-
-
 //Proteced route 
 //We are using expressJwt to pull out the payload (id) we have used in while creating token
 //This method decodes jwt on the go and attaches an object to the req header with decoded jwt. Here we named that object as 'token' , it contains decoded jwt
@@ -227,6 +198,7 @@ exports.isAuthenticated = (req, res, next) => {
     next();
 }
 
+//Check for Admin account
 exports.isAdmin = (req, res, next) => {
     if (req.profile.role === 0) {
         return res.status(403).json({

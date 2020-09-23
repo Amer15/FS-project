@@ -82,13 +82,14 @@ class AddProduct extends Component {
         e.preventDefault();
         const token = isAuthenticated();
         const user = getUser();
-        const data = this.state.formData
+        const data = this.state.formData;
 
-       //Method from admin
+
+        //Method from admin
         createProduct(user._id, token, data)
             .then(data => {
                 if (data.error) {
-                    console.log(data.error);
+                    // console.log(data.error);
                     this.setState({
                         name: '',
                         description: '',
@@ -112,10 +113,10 @@ class AddProduct extends Component {
 
                 this.notify(data.message, 'success');
 
-                //Redirect to admin dashboard after 3sec
+                //Redirect to admin dashboard after 4sec
                 setTimeout(() => {
-                  this.props.history.push('/admin/dashboard')
-                }, 3000)
+                    this.props.history.push('/admin/dashboard')
+                }, 4000)
             })
             .catch(error => {
                 this.setState({

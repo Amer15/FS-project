@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from './Navbar/Navbar';
+import Footer from './Footer/Footer';
 
 const Base = ({
     title = 'My Title Here',
@@ -17,15 +18,7 @@ const Base = ({
                 </div>
                 <div className={className}>{children}</div>
             </div>
-            <footer className='container-fluid bg-dark text-light mt-auto py-3'>
-                <div className='container-fluid text-white text-center py-4'>
-                    <h5>Contact us for any queries</h5>
-                    <button className='btn btn-warning btn-lg'>contact us</button>
-                </div>
-                <div className='container bg-dark text-muted text-center'>
-                    <p>MERN project &copy; 2020</p>
-                </div>
-            </footer>
+            <Footer />
         </>
     )
 }

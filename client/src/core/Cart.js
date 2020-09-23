@@ -45,11 +45,10 @@ class Cart extends Component {
 
 
     render() {
-        //  console.log(this.getTotalPrice())
         let items = this.state.cartItems && this.state.cartItems.length > 0 ? this.state.cartItems.map( (item, i) => {
             return (
-                <div key={i} className='row text-white text-center bg-dark d-flex justify-content-between my-2 p-1'>
-                <div className='col-4 d-flex justify-content-center align-items-center'>
+                <div key={i} className='row text-white text-center bg-dark d-flex justify-content-between my-2 p-2 rounded'>
+                <div className='col-5 d-flex justify-content-center align-items-center'>
                     <img
                         src={`${API}/product/photo/${item._id}`}
                         alt='product'
@@ -58,7 +57,7 @@ class Cart extends Component {
                         className="rounded"
                     />
                 </div>
-                <div className='col-8 p-1'>
+                <div className='col-7 p-2'>
                     <h5>{item.name}</h5>
                     <p>Rs. {item.price}</p>
                     <button 
@@ -69,17 +68,17 @@ class Cart extends Component {
                </div>
             </div>
             )
-        }) : 'no items in cart';
+        }) : <h6 className='text-center'>no items in your cart</h6>;
         
         return (
             <Base title='My Cart'
                 description='your cart is ready for checkout'
                 className='container p-4 mb-4'>
                 <div className='row'>
-                    <div className='col-sm-12 col-md-6'>
+                    <div className='col-sm-12 col-md-6 mb-4'>
                         {items}
                     </div>
-                    <div className='col-sm-12 col-md-6 p-2'>
+                    <div className='col-sm-12 col-md-6 p-2 mb-4'>
                         <Checkout 
                         products={this.state.cartItems} 
                         totalPrice={this.getTotalPrice()}/>

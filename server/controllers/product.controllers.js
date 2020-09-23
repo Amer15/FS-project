@@ -114,17 +114,36 @@ exports.updateProduct = (req, res) => {
             error: 'something went wrong'
         });
 
-        console.log(fields);
-        console.log(file);
+        // console.log(fields);
+        // console.log(file);
 
         //coming from param middleware
         let product = req.product;
 
-        product.name = fields.name;
-        product.description = fields.description;
-        product.category = fields.category;
-        product.price = fields.price;
-        product.total_units = fields.total_units;
+        if(fields.name){
+          product.name = fields.name;
+        }
+
+        if(fields.description){
+          product.description = fields.description;
+        }
+
+        if(fields.category){
+          product.category = fields.category;
+        }
+
+        if(fields.price){
+          product.price - fields.price;
+        }
+         
+        if(fields.total_units){
+            product.total_units = fields.total_units;
+        }
+        // product.name = fields.name;
+        // product.description = fields.description;
+        // product.category = fields.category;
+        // product.price = fields.price;
+        // product.total_units = fields.total_units;
 
         //Handling photo
         if (file.photo) {
@@ -145,10 +164,10 @@ exports.updateProduct = (req, res) => {
             });
 
             return res.json({
-                message: 'product saved successfully',
+                message: 'product updated successfully',
                 product
-            })
-        })
+            });
+        });
     })
 }
 

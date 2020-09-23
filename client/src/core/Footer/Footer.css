@@ -1,9 +1,11 @@
 footer{
-    /* position: absolute; */
+    position: relative;
     left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%;
-    overflow: hidden;
+    /* width: 100%; */
+  overflow-y: hidden;
+  margin-bottom: 0;
 }
 
 .social-media{

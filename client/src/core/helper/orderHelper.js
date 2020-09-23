@@ -1,12 +1,6 @@
 const API = process.env.REACT_APP_SERVER_URL;
 
-export const createOrder = (userId, token, cartProducts, orderData) => {
-    const orderDetails = {
-        order: {
-            products: cartProducts,
-            order: orderData
-        }
-    }
+export const createOrder = (userId, token, order) => {
    return fetch(`${API}/order/create/${userId}`, {
        method: 'POST',
        headers: {
@@ -14,7 +8,7 @@ export const createOrder = (userId, token, cartProducts, orderData) => {
            'Content-Type': 'application/json',
            Authorization: `Bearer ${token}`
        },
-       body: JSON.stringify(orderDetails)
+       body: JSON.stringify(order)
    })
    .then( response => {
        return response.json();

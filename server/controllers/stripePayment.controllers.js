@@ -4,8 +4,6 @@ const uuid = require('uuid/v4');
 
 exports.makePayment = ( req, res) => {
    const {totalPrice, token} = req.body;
-//    console.log('PRICE: ' + totalPrice);
-//    console.log('TOKEN: ' + token);
 
    //This key helps in not charging a customer double times because of any network issues etc
    const idempotencyKey = uuid();

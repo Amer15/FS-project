@@ -48,11 +48,12 @@ class ResetPassword extends Component {
         resetPassword(token, password)
         .then(data => {
             if(data.error){
+                console.log(data.error);
                 this.setState({
                     password: '',
                     loading: false
                 });
-                this.notify('something went wrong', 'error');
+                this.notify(data.error, 'error');
             }
             else{
                 this.setState({
